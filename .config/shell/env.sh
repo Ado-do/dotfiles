@@ -96,7 +96,6 @@ add_to_path "$HOME/.local/bin"
 add_to_path "$HOME/.opencode/bin"
 add_to_path "$HOMEBREW_PREFIX/bin"
 add_to_path "$HOMEBREW_PREFIX/sbin"
-add_to_path "$HOME/.local/share/JetBrains/Toolbox/scripts"
 add_to_path "$XDG_DATA_HOME/fnm"
 add_to_path "$PNPM_HOME/bin"
 export PATH
