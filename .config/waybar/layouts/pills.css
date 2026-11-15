@@ -1,0 +1,112 @@
+/* Pills layout: one dark pill per right-side module, accent-colored
+ * text per module, solid color only for states that need attention.
+ * Imported by themes/neutral.css and the other pill themes; each one
+ * defines the palette:
+ *   bar pill pill-hi hover tooltip-bg tooltip-border fg muted on-accent
+ *   green purple blue yellow teal orange red
+ * on-accent is the text color on solid accent backgrounds. */
+
+* {
+    font-size: 18px;
+}
+
+#custom-mode {
+    margin: 3px 4px;
+    border-radius: 6px;
+    background-color: @yellow;
+    color: @on-accent;
+}
+
+#custom-lastfm {
+    color: @green;
+}
+
+/* Right side: every block is the same dark pill (tray: one per visible icon) */
+#tray > .active,
+#tray > .needs-attention,
+#custom-dunst,
+#custom-idle,
+#language,
+#cpu,
+#memory,
+#network,
+#bluetooth,
+#pulseaudio,
+#power-profiles-daemon,
+#battery {
+    margin: 3px 2px;
+    border-radius: 6px;
+    background-color: @pill;
+    color: @fg;
+}
+
+/* event boxes ignore padding; pad the icon so the pill matches the others */
+#tray > * > image {
+    padding: 0 10px;
+}
+
+#tray > .needs-attention {
+    background-color: @red;
+}
+
+/* a non-default mode is on: idle inhibited, notifications paused */
+#custom-dunst.paused,
+#custom-idle.activated {
+    background-color: @fg;
+    color: @pill;
+}
+
+#language {
+    padding: 0 8px;
+    color: @teal;
+}
+
+#cpu {
+    color: @green;
+}
+
+#memory {
+    color: @purple;
+}
+
+#network {
+    color: @blue;
+}
+
+#network.disconnected {
+    background-color: @red;
+    color: @on-accent;
+}
+
+#bluetooth {
+    color: @blue;
+}
+
+#pulseaudio {
+    color: @yellow;
+}
+
+#power-profiles-daemon.performance {
+    color: @orange;
+}
+
+#power-profiles-daemon.power-saver {
+    color: @green;
+}
+
+#battery.warning:not(.charging) {
+    background-color: @yellow;
+    color: @on-accent;
+}
+
+@keyframes blink {
+    to {
+        background-color: @fg;
+        color: @on-accent;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background-color: @red;
+    color: @on-accent;
+}

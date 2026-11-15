@@ -1,0 +1,9 @@
+git:
+  # Cycle with the cycleDiffRenderers key; the first entry is the default.
+  diffRenderers:
+    - name: delta
+      type: stdinFilter
+      command: delta --dark --paging=never
+    - name: difftastic
+      type: extDiff
+      command: difft --color=always

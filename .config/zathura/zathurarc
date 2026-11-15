@@ -1,0 +1,13 @@
+# Font
+set font "monospace normal 12"
+
+#set recolor "true" # Enable recoloring by default
+set recolor-lightcolor "#1e1e1e" # Dark Grey/Black
+set recolor-darkcolor  "#dcdcdc" # Light Grey/White
+set recolor-keephue "false" # Keep original colors for images/videos
+
+set scroll-step 120
+set selection-clipboard clipboard
+set window-title-basename true
+set adjust-open "width"
+set statusbar-basename true

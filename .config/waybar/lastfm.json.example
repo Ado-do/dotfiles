@@ -1,0 +1,5 @@
+{
+    "username": "YOUR_LASTFM_USERNAME",
+    "api_key": "YOUR_LASTFM_API_KEY",
+    "show_last_scrobbled": false
+}

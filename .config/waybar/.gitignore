@@ -1,0 +1,5 @@
+lastfm.json
+__pycache__/
+*.log
+# Active theme, written by scripts/theme.sh (fresh checkout: scripts/theme.sh neutral)
+style.css

@@ -1,0 +1,30 @@
+#:schema https://yazi-rs.github.io/schemas/yazi.json
+
+# Only overrides live here; everything else inherits yazi's built-in preset
+# (see `yazi-default.toml` upstream). Previous full copy: yazi.toml.bak
+
+[opener]
+# Audio: Enter runs the first entry, `O` shows the whole list. See ~/.local/bin/ympv
+audio = [
+	{ run = 'mpv --no-video --term-osd-bar %s', block = true, desc = "mpv (terminal)", for = "unix" },
+	{ run = 'ympv play %s', orphan = true, desc = "mpv (background)", for = "unix" },
+	{ run = 'ympv add %s', orphan = true, desc = "mpv (add to queue)", for = "unix" },
+	{ run = 'flatpak run io.bassi.Amberol %s', orphan = true, desc = "Amberol", for = "linux" },
+	{ run = 'termusic', block = true, desc = "termusic (library)", for = "unix" },
+]
+
+[open]
+prepend_rules = [
+	{ mime = "audio/*", use = [ "audio", "play", "reveal" ] },
+]
+
+# git.yazi: git status markers in the file list (setup in init.lua)
+[[plugin.prepend_fetchers]]
+url   = "*"
+run   = "git"
+group = "git"
+
+[[plugin.prepend_fetchers]]
+url   = "*/"
+run   = "git"
+group = "git"

@@ -1,0 +1,19 @@
+# ~/.config/kanshi/config
+
+# Laptop screen only
+profile laptop {
+    output eDP-1 enable mode 1920x1080 position 0,0
+}
+
+# Office setup: Laptop on the Left, Xiaomi Monitor on the Right
+profile office {
+    output eDP-1 enable mode 1920x1080 position 0,0
+    output "Xiaomi Corporation P27FBA-RAGL 5105400314808" enable mode 1920x1080@100Hz position 1920,0
+}
+
+# Home setup: Samsung TV
+profile home_tv {
+    output "Samsung Electric Company SAMSUNG 0x01000E00" enable mode 3840x2160@60Hz scale 2 position 1920,0
+    output eDP-1 enable mode 1920x1080 position 0,0
+}
+

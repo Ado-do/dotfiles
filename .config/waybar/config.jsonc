@@ -1,0 +1,231 @@
+// -*- mode: jsonc -*-
+{
+    // "layer": "top", // Waybar at top layer
+    // "position": "bottom", // Waybar position (top|bottom|left|right)
+    //"height": 25, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+    "spacing": 0, // Gaps between modules (4px)
+    "reload_style_on_change": true, // also watches common.css and the theme it imports
+    // Choose the order of the modules
+    "modules-left": [
+        "sway/workspaces",
+        "custom/mode",
+        "sway/scratchpad",
+        "custom/lastfm"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "tray",
+        "custom/dunst",
+        "custom/idle",
+        "sway/language",
+        "cpu",
+        "memory",
+        "network",
+        "bluetooth",
+        "pulseaudio",
+        "power-profiles-daemon",
+        "battery"
+    ],
+    // Modules configuration
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        //"disable-click": true,
+        "warp-on-scroll": false
+    },
+    "custom/mode": {
+        // sway/mode, but with a class per mode (frozen blinks)
+        "exec": "~/.config/waybar/scripts/sway-mode.sh",
+        "return-type": "json",
+        "restart-interval": 1
+    },
+    "sway/scratchpad": {
+        "format": "{icon} {count}",
+        "show-empty": false,
+        "format-icons": [
+            "",
+            ""
+        ],
+        "tooltip": true,
+        "tooltip-format": "{app}: {title}"
+    },
+    "custom/idle": {
+        "exec": "~/.config/sway/scripts/idle.sh status",
+        "return-type": "json",
+        "on-click": "~/.config/sway/scripts/idle.sh toggle",
+        "interval": 60, // Refresh every minute as a fallback
+        "signal": 9, // Update immediately when we send signal 9
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+    "tray": {
+        "icon-size": 14,
+        "spacing": 4
+        // "icons": {
+        //   "blueman": "bluetooth",
+        //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
+        // }
+    },
+    "clock": {
+        // "timezone": "America/New_York",
+        "timezone": "America/Santiago",
+        // en_GB over en_US: weeks start on Monday, matching the ISO W{:%V} numbers
+        "locale": "en_GB.UTF-8",
+        "format": "{:%a %b %d, %H:%M}",
+        // No tooltip: it would cover the click popup
+        "tooltip": false,
+        "calendar": {
+            "mode": "month",
+            "weeks-pos": "left",
+            "on-scroll": 1,
+            // Pango markup can't use the themes' CSS colors; these match tokyonight
+            "format": {
+                "months": "<span color='#c0caf5'><b>{}</b></span>",
+                "weeks": "<span color='#737aa2'><b>W{:%V}</b></span>",
+                "weekdays": "<span color='#7aa2f7'><b>{}</b></span>",
+                "days": "<span color='#c0caf5'>{}</span>",
+                "today": "<span background='#414868' color='#ff9e64'><b>{}</b></span>"
+            }
+        },
+        // Left: calendar popup (toggles), right: calcure. Same as $mod+Alt+c / $mod+n c
+        "on-click": "~/.config/sway/scripts/calendar-popup.py",
+        "on-click-right": "~/.config/sway/scripts/panel.sh Calendar calcure",
+        "actions": {
+            "on-click-middle": "shift_reset",
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down"
+        }
+    },
+    "cpu": {
+        "format": " {usage:>2}%",
+        "min-length": 5,
+        "tooltip": false,
+        "on-click": "~/.config/sway/scripts/panel.sh Monitor btop"
+    },
+    "memory": {
+        "format": " {}%",
+        "on-click": "~/.config/sway/scripts/panel.sh Monitor btop"
+    },
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{icon} {time}",
+        "tooltip-format": "{timeTo}\nPower: {power} W\nHealth: {health}%",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        //"format-icons": ["󰁺", "", "", "", ""]
+        "format-icons": [
+            "󰁺",
+            "󰁼",
+            "󰁾",
+            "󰂁",
+            "󰁹"
+        ]
+    },
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+        "tooltip": true,
+        "format-icons": {
+            "default": "",
+            "performance": "",
+            "balanced": "",
+            "power-saver": ""
+        }
+    },
+
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+
+        //"format-wifi": "{essid} ({signalStrength}%) ",
+        "format-wifi": "",
+        //"format-wifi": " {essid} ({signalStrength}%)",
+        //"format-wifi": " {essid}",
+
+        "format-ethernet": "",
+
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "tooltip-format-wifi": " {essid} ({signalStrength}%)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}\nIP: {ipaddr}/{cidr}\nGW: {gwaddr}",
+        "tooltip-format-ethernet": " {ifname}\nIP: {ipaddr}/{cidr}\nGW: {gwaddr}",
+        "tooltip-format-disconnected": "󰖪 Disconnected",
+
+        //"format-alt": "{ifname}: {ipaddr}/{cidr}",
+        //"format-alt": " {essid} ({signalStrength}%)",
+
+        "format-linked": "",
+        "tooltip-format-linked": " {ifname}\nNo IP",
+        "format-disconnected": "󰖪",
+        "on-click": "~/.config/sway/scripts/panel.sh Wi-Fi wlctl",
+        "on-click-right": "nm-connection-editor"
+    },
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{icon}{format_source}",
+        "format-bluetooth": "{icon}{format_source}",
+        "format-bluetooth-muted": "{icon}  {format_source}",
+        "format-muted": " {format_source}",
+        //"format-source": "{volume}% ",
+        "format-source": "",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": [
+                "",
+                "",
+                ""
+            ]
+        },
+        "on-click": "~/.config/sway/scripts/panel.sh Mixer wiremix",
+        "on-click-middle": "pavucontrol",
+        "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+    },
+    "bluetooth": {
+        "format": "󰂯",
+        "format-off": "󰂲",
+        "format-disabled": "󰂲",
+        "format-connected": "󰂱",
+        "format-connected-battery": "󰂱 {device_battery_percentage}%",
+        "tooltip-format": "{controller_alias}: {status}",
+        "tooltip-format-connected": "{controller_alias}\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}",
+        "tooltip-format-enumerate-connected-battery": "{device_alias}  {device_battery_percentage}%",
+        "on-click": "~/.config/sway/scripts/panel.sh Bluetooth bluetui",
+        "on-click-right": "bluetooth toggle"
+    },
+    "custom/lastfm": {
+        "format": "{icon} {text}",
+        "return-type": "json",
+        "max-length": 80,
+        "format-icons": {
+            "playing": ""
+        },
+        "escape": true,
+        "exec": "$HOME/.config/waybar/scripts/lastfm.py",
+        "interval": 15
+    },
+    "custom/dunst": {
+        "exec": "~/.config/waybar/scripts/dunst.sh",
+        "return-type": "json",
+        "on-click": "dunstctl set-paused toggle && pkill -RTMIN+8 waybar",
+        "interval": 60, // Refresh every minute as a fallback
+        "signal": 8, // Update immediately when we send signal 8
+        "tooltip": false
+    }
+}

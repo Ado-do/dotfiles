@@ -1,0 +1,61 @@
+/* Minimal: no pill backgrounds, plain text and icons separated by
+ * spacing. Color appears only when something needs attention.
+ * Layout shared with other themes lives in ../common.css. */
+
+@define-color bar            rgba(0, 0, 0, 0.8);
+@define-color hover          rgba(255, 255, 255, 0.08);
+@define-color tooltip-bg     #111116;
+@define-color tooltip-border #2c2c38;
+@define-color fg             #e6e6ef;
+@define-color muted          #8c8ca3;
+@define-color yellow         #f5d77a;
+@define-color green          #7ee2a8;
+@define-color red            #f0607a;
+
+* {
+    font-size: 16px;
+}
+
+#custom-mode {
+    color: @yellow;
+}
+
+#custom-lastfm {
+    color: @muted;
+}
+
+#tray {
+    padding: 0 10px;
+}
+
+#battery {
+    padding-right: 12px;
+}
+
+/* a non-default mode is on: idle inhibited, notifications paused */
+#custom-dunst.paused,
+#custom-idle.activated {
+    color: @yellow;
+}
+
+#language {
+    color: @muted;
+}
+
+#network.disconnected {
+    color: @red;
+}
+
+#battery.warning:not(.charging) {
+    color: @yellow;
+}
+
+@keyframes blink {
+    to {
+        color: @fg;
+    }
+}
+
+#battery.critical:not(.charging) {
+    color: @red;
+}

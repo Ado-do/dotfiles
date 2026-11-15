@@ -1,0 +1,53 @@
+#:schema https://yazi-rs.github.io/schemas/keymap.json
+
+# smart-enter.yazi: one key to enter a directory or open a file
+[[mgr.prepend_keymap]]
+on   = "l"
+run  = "plugin smart-enter"
+desc = "Enter the child directory, or open the file"
+
+[[mgr.prepend_keymap]]
+on   = "<Enter>"
+run  = "plugin smart-enter"
+desc = "Enter the child directory, or open the file"
+
+# Background mpv controls (prefix: M). See ~/.local/bin/ympv
+[[mgr.prepend_keymap]]
+on   = [ "M", "s" ]
+run  = "shell -- ympv stop"
+desc = "mpv: stop"
+
+[[mgr.prepend_keymap]]
+on   = [ "M", "<Space>" ]
+run  = "shell -- ympv toggle"
+desc = "mpv: pause/resume"
+
+[[mgr.prepend_keymap]]
+on   = [ "M", "n" ]
+run  = "shell -- ympv next"
+desc = "mpv: next track"
+
+[[mgr.prepend_keymap]]
+on   = [ "M", "p" ]
+run  = "shell -- ympv prev"
+desc = "mpv: previous track"
+
+[[mgr.prepend_keymap]]
+on   = [ "M", "l" ]
+run  = "shell -- ympv seek 10"
+desc = "mpv: seek +10s"
+
+[[mgr.prepend_keymap]]
+on   = [ "M", "h" ]
+run  = "shell -- ympv seek -10"
+desc = "mpv: seek -10s"
+
+[[mgr.prepend_keymap]]
+on   = [ "M", "a" ]
+run  = "shell -- ympv add %s"
+desc = "mpv: add hovered/selected to queue"
+
+[[mgr.prepend_keymap]]
+on   = [ "M", "i" ]
+run  = "shell -- ympv info"
+desc = "mpv: now playing (notification)"

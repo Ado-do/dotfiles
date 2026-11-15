@@ -1,0 +1,4 @@
+# My Sway Config
+
+# Include default Fedora config + custom config
+include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "$HOME/.config/sway/config.d/*.conf")'

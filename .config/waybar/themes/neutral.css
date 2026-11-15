@@ -1,0 +1,21 @@
+@import url("../layouts/pills.css");
+
+/* Neutral pills: one dark pill color, accent-colored text per module,
+ * solid color only for states that need attention. */
+
+@define-color bar            rgba(0, 0, 0, 0.8);
+@define-color pill           #24242e;
+@define-color pill-hi        #383850;
+@define-color hover          @pill-hi;
+@define-color tooltip-bg     #1a1a22;
+@define-color tooltip-border @pill-hi;
+@define-color fg             #e6e6ef;
+@define-color muted          #9a9ab0;
+@define-color green          #7ee2a8;
+@define-color purple         #c3a6f2;
+@define-color blue           #7fb8f0;
+@define-color yellow         #f5d77a;
+@define-color teal           #6fdcc8;
+@define-color orange         #f5a97f;
+@define-color red            #f0607a;
+@define-color on-accent      #000000;

@@ -1,0 +1,61 @@
+# Swaylock configuration - Perfectly blended with background
+# Wallpaper: Slowdive album art (monochrome gray/black)
+
+# Background image and scaling
+image=~/Pictures/backgrounds/music/slowdive5-2.png
+scaling=fill
+
+# Typography
+#font=Noto Sans
+font=IBM Plex Serif:weight=medium
+#font=IosevkaTerm NF:weight=SemiBold
+#font-size=24
+
+# Indicator layout (modern, thin, elegant)
+# Sits below the photo (y=960 on the 1080p panel) and stays visible while idle
+indicator-radius=50
+indicator-thickness=7
+indicator-y-position=960
+indicator-idle-visible
+separator-color=00000000
+
+# Transparency / no border lines
+line-color=00000000
+line-clear-color=00000000
+line-ver-color=00000000
+line-wrong-color=00000000
+line-caps-lock-color=00000000
+
+# Inside circle colors (fully transparent to show the background art)
+inside-color=00000000
+inside-clear-color=00000000
+inside-ver-color=00000000
+inside-wrong-color=00000000
+inside-caps-lock-color=00000000
+
+# Ring colors (blended with background theme)
+# - Base ring color (#898989) is matched to the dominant gray tone of the Slowdive artwork
+ring-color=89898966
+ring-ver-color=89898988
+ring-clear-color=f5a97faa
+ring-wrong-color=f28c8caa
+ring-caps-lock-color=f5a97faa
+
+# Key highlight colors (keypress indicators)
+key-hl-color=898989ff
+bs-hl-color=f28c8cbb
+
+# Text colors (clean monochrome & matching accent tones)
+text-color=e0e0e0aa
+text-clear-color=f5a97f
+text-ver-color=e0e0e0
+text-wrong-color=f28c8c
+text-caps-lock-color=f5a97f
+
+# Keyboard layout box (us/latam), shown while typing, blended like the ring
+layout-bg-color=00000000
+layout-border-color=00000000
+layout-text-color=e0e0e0aa
+
+# Behavior settings
+ignore-empty-password

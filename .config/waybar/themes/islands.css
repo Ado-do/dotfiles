@@ -1,0 +1,113 @@
+/* Islands: a transparent bar with three floating rounded groups that
+ * line up with tiled windows. Sway (gaps inner 6, outer 4) puts window
+ * edges 10px from the screen and 10px below the bar, so the islands sit
+ * 10px from the edges and top too. Text uses neutral's accents. */
+
+@define-color island         rgba(22, 22, 30, 0.92);
+@define-color bar            transparent;
+@define-color hover          #2c2c3a;
+@define-color tooltip-bg     #1a1a22;
+@define-color tooltip-border #383850;
+@define-color fg             #e6e6ef;
+@define-color muted          #9a9ab0;
+@define-color green          #7ee2a8;
+@define-color purple         #c3a6f2;
+@define-color blue           #7fb8f0;
+@define-color yellow         #f5d77a;
+@define-color teal           #6fdcc8;
+@define-color orange         #f5a97f;
+@define-color red            #f0607a;
+
+* {
+    font-size: 16px;
+}
+
+/* the 6px side padding keeps edge highlights (focused workspace line,
+ * battery hover) inside the 8px rounded corners */
+.modules-left,
+.modules-center,
+.modules-right {
+    margin-top: 10px;
+    padding: 2px 6px;
+    border-radius: 8px;
+    background-color: @island;
+}
+
+.modules-left {
+    margin-left: 10px;
+}
+
+.modules-right {
+    margin-right: 10px;
+}
+
+#custom-mode {
+    color: @yellow;
+}
+
+#custom-lastfm {
+    color: @green;
+}
+
+#tray {
+    padding: 0 10px;
+}
+
+#tray > .needs-attention {
+    background-color: @red;
+}
+
+#language {
+    color: @teal;
+}
+
+#cpu {
+    color: @green;
+}
+
+#memory {
+    color: @purple;
+}
+
+#network,
+#bluetooth {
+    color: @blue;
+}
+
+#pulseaudio {
+    color: @yellow;
+}
+
+/* States */
+#custom-dunst.paused,
+#custom-idle.activated {
+    color: @yellow;
+}
+
+#network.disconnected {
+    color: @red;
+}
+
+#power-profiles-daemon.performance {
+    color: @orange;
+}
+
+#power-profiles-daemon.power-saver {
+    color: @green;
+}
+
+#battery.warning:not(.charging) {
+    color: @yellow;
+}
+
+@keyframes blink {
+    to {
+        background-color: @fg;
+        color: #000000;
+    }
+}
+
+#battery.critical:not(.charging) {
+    background-color: @red;
+    color: #000000;
+}

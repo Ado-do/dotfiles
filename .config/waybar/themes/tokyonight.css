@@ -1,0 +1,28 @@
+@import url("../layouts/pills.css");
+
+/* Tokyo Night (night) on the pills layout (palette: folke/tokyonight.nvim),
+ * with the pills cleared: plain colored text, a box only on hover and
+ * for states. */
+
+@define-color bar            rgba(0, 0, 0, 0.8);    /* foot: background=000000, alpha=0.8 */
+@define-color pill           transparent;           /* no boxes: colored text on the bar */
+@define-color pill-hi        #414868;               /* terminal_black */
+@define-color hover          @pill-hi;
+@define-color tooltip-bg     #1a1b26;               /* bg */
+@define-color tooltip-border @pill-hi;
+@define-color fg             #c0caf5;
+@define-color muted          #737aa2;               /* dark5 */
+@define-color green          #9ece6a;
+@define-color purple         #bb9af7;               /* magenta */
+@define-color blue           #7aa2f7;
+@define-color yellow         #e0af68;
+@define-color teal           #73daca;               /* green1 */
+@define-color orange         #ff9e64;
+@define-color red            #f7768e;
+@define-color on-accent      #16161e;               /* bg_dark */
+
+/* the layout's "mode on" text uses @pill, transparent here */
+#custom-dunst.paused,
+#custom-idle.activated {
+    color: @on-accent;
+}
