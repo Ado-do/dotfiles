@@ -50,6 +50,13 @@ export CODEX_HOME="$XDG_CONFIG_HOME/codex"
 export COPILOT_HOME="$XDG_CONFIG_HOME/copilot"
 #export CLAUDE_CONFIG_DIR="$XDG_CONFIG_HOME/claude"
 
+# --- SSH agent --------------------------------------------------------------
+# OpenSSH's socket-activated agent (systemctl --user enable ssh-agent.socket).
+# Only set when unset, so a forwarded agent (ssh -A) is not overridden.
+if [ -z "${SSH_AUTH_SOCK:-}" ]; then
+    export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/ssh-agent.socket"
+fi
+
 # NOTE: GRIMSHOT_FILENAME_FORMAT was removed here. grimshot uses that variable
 # as a *literal* filename (no date expansion), so exporting a timestamped value
 # made every screenshot in a session overwrite the same file. Screenshots are
