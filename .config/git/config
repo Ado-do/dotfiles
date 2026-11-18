@@ -9,7 +9,7 @@
 [credential]
 	helper = cache
 [core]
-	excludesfile = /home/aibe/.config/git/gitignore
+	excludesfile = ~/.config/git/gitignore
 	quotepath = false
 [merge]
 	conflictStyle = zdiff3
