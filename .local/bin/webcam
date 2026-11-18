@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Minimal webcam window (mpv). Usage: webcam [/dev/videoN]
+dev=${1:-/dev/video0}
+exec mpv "av://v4l2:$dev" \
+  --wayland-app-id=webcam --title=Webcam \
+  --profile=low-latency --untimed --no-cache \
+  --no-osc --osd-level=0 \
+  --vf=hflip --keep-open=no

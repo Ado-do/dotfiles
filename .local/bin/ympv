@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+# ympv: control a background mpv audio player (used by yazi).
+# Usage: ympv play FILES... | add FILES... | stop | toggle | next | prev | seek SECS | info
+set -euo pipefail
+
+sock="${XDG_RUNTIME_DIR:-/tmp}/yazi-mpv.sock"
+
+send() { # send one JSON IPC command built from args
+    jq -nc '{command: $ARGS.positional}' --args "$@" | socat - "$sock" 2>/dev/null
+}
+
+running() { [[ -S $sock ]] && send get_property pid >/dev/null; }
+
+need_running() {
+    running || {
+        notify-send -a mpv "mpv" "Nothing playing"
+        exit 0
+    }
+}
+
+cmd="${1:-}"
+shift || true
+
+case "$cmd" in
+    play)
+        running && send quit >/dev/null || true
+        setsid -f mpv --no-video --really-quiet --input-ipc-server="$sock" "$@" >/dev/null 2>&1
+        ;;
+    add)
+        if running; then
+            for f in "$@"; do send loadfile "$(realpath -- "$f")" append-play >/dev/null; done
+            notify-send -a mpv "mpv" "Queued $# file(s)"
+        else
+            exec "$0" play "$@"
+        fi
+        ;;
+    stop) need_running && send quit >/dev/null ;;
+    toggle) need_running && send cycle pause >/dev/null ;;
+    next) need_running && send playlist-next >/dev/null ;;
+    prev) need_running && send playlist-prev >/dev/null ;;
+    seek) need_running && send seek "${1:-10}" >/dev/null ;;
+    info)
+        need_running
+        title=$(send get_property media-title | jq -r '.data // "?"')
+        pos=$(send get_property playlist-pos-1 | jq -r '.data // "?"')
+        count=$(send get_property playlist-count | jq -r '.data // "?"')
+        paused=$(send get_property pause | jq -r '.data')
+        state=$([[ $paused == true ]] && echo "⏸ Paused" || echo "▶ Playing")
+        notify-send -a mpv "$state ($pos/$count)" "$title"
+        ;;
+    *)
+        echo "usage: ympv play|add FILES... | stop|toggle|next|prev|info | seek SECS" >&2
+        exit 2
+        ;;
+esac
