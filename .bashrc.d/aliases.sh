@@ -41,7 +41,7 @@ alias promptconf='$EDITOR ~/.bashrc.d/prompt.sh'
 alias swayconf='$EDITOR -c "cd %:p:h" ~/.config/sway/config'
 alias binds='$EDITOR ~/.config/sway/config.d/60-bindings.conf'
 alias rules='$EDITOR ~/.config/sway/config.d/50-rules.conf'
-alias appearance='$EDITOR ~/.config/sway/config.d/30-appearence.conf'
+alias appearance='$EDITOR ~/.config/sway/config.d/30-appearance.conf'
 alias waybarconf='$EDITOR -c "cd %:p:h" ~/.config/waybar/config.jsonc'
 
 alias footconf='$EDITOR ~/.config/foot/foot.ini'

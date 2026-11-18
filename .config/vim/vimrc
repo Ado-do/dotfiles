@@ -1,0 +1,100 @@
+" MY VIMRC
+
+"" OPTIONS
+" core
+set nocompatible
+filetype plugin indent on
+runtime! ftplugin/man.vim
+syntax enable
+set hidden autoread
+set path+=/usr/local/include,
+set wildmode=longest,list,full
+
+" indentation
+set ts=4 sw=4 sts=4 et
+
+" numbers col
+set number relativenumber
+set cursorline culopt=number
+
+" search
+set is ic scs hls
+
+" display
+set wrap
+set linebreak breakindent
+set scrolloff=10
+set splitright
+let &t_SI = "\e[5 q" " insert mode (vertical bar)
+let &t_SR = "\e[3 q" " replace mode (underline)
+let &t_EI = "\e[2 q" " normal mode (block)
+
+" colors
+if has("termguicolors") | set tgc | endif
+colorscheme retrobox
+set bg=dark
+hi Normal guibg=NONE 
+hi CursorLineNr guibg=NONE
+
+" XDG specs
+if !empty($XDG_STATE_HOME)
+    let g:vim_state = $XDG_STATE_HOME . '/vim'
+
+    " Create directories if they don't exist
+    if !isdirectory(g:vim_state) | call mkdir(g:vim_state, "p") | endif
+    for d in ['/swap', '/backup', '/undo']
+        if !isdirectory(g:vim_state . d) | call mkdir(g:vim_state . d, "p") | endif
+    endfor
+
+    set directory=$XDG_STATE_HOME/vim/swap//
+    set backup backupdir=$XDG_STATE_HOME/vim/backup//
+    set undofile undodir=$XDG_STATE_HOME/vim/undo//
+    set viminfofile=$XDG_STATE_HOME/vim/viminfo
+endif
+
+" Look for local tags, then fall back to the XDG system tags path
+"if !empty($XDG_DATA_HOME)
+"    set tags+=,$XDG_DATA_HOME/tags/system
+"endif
+
+" use ripgrep instead if installed
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --smart-case
+  set grepformat=%f:%l:%c:%m
+endif
+
+"" AUTOCOMMANDS
+au BufNewFile,BufRead *.gp set ft=gnuplot
+
+"" BINDS
+noremap <Space> <NOP>
+let mapleader = "\<Space>"
+
+nnoremap <leader>h :noh<CR>
+"command! W execute 'w !sudo tee % > /dev/null' | e!
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+nnoremap <leader>y :%y +<CR>
+nnoremap k gk
+nnoremap j gj
+nnoremap <leader>e :Lex<CR>
+vnoremap < <gv
+vnoremap > >gv
+nnoremap x "_x
+vnoremap p "_dP
+nnoremap <F5> :!ctags -R .<CR>
+
+" Buffer navigation keybindings
+nnoremap <leader>b :ls<CR>:b<Space>
+nnoremap [b :bprevious<CR>
+nnoremap ]b :bnext<CR>
+nnoremap <leader>bd :bdelete<CR>
+
+" PLUGINS CONF
+let g:netrw_banner = 0        " no banner
+let g:netrw_liststyle = 3     " tree style
+let g:netrw_browse_split = 4  " open in reused window
+let g:netrw_altv = 1          " right split instead of left
+let g:netrw_winsize = 15
+let g:netrw_preview = 1
+let g:netrw_keepdir = 0       " update cwd
