@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # fzf configuration (key bindings are loaded in bash_completion.sh)
 
 if command -v fzf &>/dev/null; then
@@ -14,11 +15,24 @@ if command -v fzf &>/dev/null; then
         _fzf_compgen_dir() { fd --type d --hidden --follow --exclude .git . "$1"; }
     fi
 
-    # Ctrl-T: bat for files, eza tree for directories
-    export FZF_CTRL_T_OPTS="--preview '[[ -d {} ]] && eza --tree --level=2 --color=always {} || bat -n --color=always --line-range :500 {}'"
+    # Previews: eza/bat when installed, plain tools otherwise
+    if command -v eza &>/dev/null; then
+        _fzf_dir_preview='eza --tree --level=2 --color=always {}'
+    else
+        _fzf_dir_preview='ls -A --color=always {}'
+    fi
+    if command -v bat &>/dev/null; then
+        _fzf_file_preview='bat -n --color=always --line-range :500 {}'
+    else
+        _fzf_file_preview='head -n 500 {}'
+    fi
+
+    # Ctrl-T: file contents, or a tree for directories
+    export FZF_CTRL_T_OPTS="--preview '[[ -d {} ]] && $_fzf_dir_preview || $_fzf_file_preview'"
 
     # Alt-C: directory tree preview
-    export FZF_ALT_C_OPTS="--preview 'eza --tree --level=2 --color=always {}'"
+    export FZF_ALT_C_OPTS="--preview '$_fzf_dir_preview'"
+    unset _fzf_dir_preview _fzf_file_preview
 
     # Ctrl-R: Ctrl-Y copies the selected command to the clipboard
     export FZF_CTRL_R_OPTS="--bind 'ctrl-y:execute-silent(echo -n {2..} | wl-copy)+abort'"

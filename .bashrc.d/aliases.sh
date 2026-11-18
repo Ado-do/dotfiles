@@ -1,9 +1,13 @@
 # shellcheck shell=bash
 # Custom aliases
 
-# replace
-alias vim='vimx'
-alias ls='eza --icons --group-directories-first'
+# replace (fancy versions only when installed, so a fresh machine still works)
+command -v vimx &>/dev/null && alias vim='vimx'
+if command -v eza &>/dev/null; then
+    alias ls='eza --icons --group-directories-first'
+else
+    alias ls='ls --color=auto --group-directories-first'
+fi
 alias tree='tree --dirsfirst --gitignore'
 alias cp='cp -i'
 alias mv='mv -i'
